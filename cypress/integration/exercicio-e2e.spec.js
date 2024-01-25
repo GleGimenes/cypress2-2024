@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-let dadosLogin
+
 
 describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     /*  Como cliente 
@@ -9,13 +9,7 @@ describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         Adicionando ao carrinho
         Preenchendo todas opções no checkout
         E validando minha compra ao final */
-
-    before(() => {
-        //cy.login(dadosLogin.usuario, dadosLogin.senha)
-        //cy.get('.page-title').should('contain', 'Minha conta')
-    })
 });
-
 beforeEach(() => {
     cy.visit('minha-conta')
 
@@ -79,6 +73,7 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
     cy.get('#place_order').click()
 
     cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
+    
         
 
        

@@ -1,21 +1,16 @@
 /// <reference types="cypress" />
+const perfil = require('../fixtures/perfil.json')
 
 describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
-    /*  Como cliente 
-        Quero acessar a Loja EBAC 
-        Para fazer um pedido de 4 produtos 
-        Fazendo a escolha dos produtos
-        Adicionando ao carrinho
-        Preenchendo todas opções no checkout
-        E validando minha compra ao final */
+
 
     beforeEach(() => {
         cy.visit('minha-conta')
 
     });
 
-   // afterEach(() => {
-        //cy.screenshot()
+    // afterEach(() => {
+    //cy.screenshot()
     //});
 
     it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
@@ -63,8 +58,12 @@ describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
 
         cy.get('.showlogin').click()
-        cy.get('#username').type('aluno_ebac@teste.com')
-        cy.get('#password').type('teste@teste.com', { log: false })
+        //cy.get('#username').type(perfil.usuario)
+        //cy.get('#password').type(perfil.senha)
+        cy.fixture('perfil').then(dados => {
+            cy.get('#username').type(dados.usuario)
+            cy.get('#password').type(dados.senha, { log: false})
+        })
 
         cy.get('.woocommerce-button').click()
         cy.wait(300);
@@ -74,4 +73,4 @@ describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
         cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
     });
-}); // Add the closing curly brace here
+}); 
