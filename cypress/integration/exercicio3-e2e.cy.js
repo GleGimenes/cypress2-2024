@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 const perfil = require('../fixtures/perfil.json')
+import faturamentoPage from '../support/page_objects/faturamento.page';
 
 describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
@@ -9,16 +10,20 @@ beforeEach(() => { //Login usando Fixture
     cy.visit('minha-conta')
     cy.fixture('perfil').then(dados => {
         cy.login(dados.usuario, dados.senha)
+
+        cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá,')
     })
 
 });
 
-// afterEach(() => {
-//cy.screenshot()
-//});
+ afterEach(() => {
+cy.screenshot()
+});
 
-it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => { //Adicionado produtos usando comandos customizados
-   cy.get('#primary-menu > .menu-item-629 > a').click()
+
+
+it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comando Customizados', () => {
+    cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.addProdutos(5, '36', 'Red', '1')
     cy.get('.single_add_to_cart_button').click()
     cy.get('#primary-menu > .menu-item-629 > a').click()
@@ -34,8 +39,7 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => { //Adiciona
     cy.get('h2').should('contain', 'Total no carrinho')
 
     cy.get('.checkout-button').click()
-    //Dados de Faturamento
-    cy.get('#billing_first_name').clear().type('João') //TO DO Dados de faturamento com page objects
+    cy.get('#billing_first_name').clear().type('João')
     cy.get('#billing_last_name').clear().type('Silva')
     cy.get('#billing_company').clear().type('Ebac')
     cy.get('#select2-billing_country-container').type('Brasil{enter}')
@@ -51,5 +55,31 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => { //Adiciona
     cy.wait(200);
     cy.get('#place_order').click()
 
-    cy.get('.woocommerce-thankyou-order-received').should('contain', 'Pedido recebido')
+    cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
 })
+
+
+it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Page Objects', () => {
+    cy.get('#primary-menu > .menu-item-629 > a').click()
+    cy.addProdutos(5, '36', 'Red', '1')
+    cy.get('.single_add_to_cart_button').click()
+    cy.get('#primary-menu > .menu-item-629 > a').click()
+    cy.addProdutos(1, 'XL', 'Yellow', '1')
+    cy.get('.woocommerce-message > .button').click()
+    cy.get('#primary-menu > .menu-item-629 > a').click()
+    cy.addProdutos(0, 'L', 'Green', '1')
+    cy.get('.single_add_to_cart_button').click()
+    cy.get('#primary-menu > .menu-item-629 > a').click()
+    cy.addProdutos(1, 'XL', 'Yellow', '1')
+    cy.get('.woocommerce-message > .button').click()
+    cy.get('h2').should('contain', 'Total no carrinho')
+
+    faturamentoPage.editarDadosFaturamento()
+ 
+     cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
+    
+})
+
+
+
+
