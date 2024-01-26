@@ -19,7 +19,7 @@ afterEach(() => {
     cy.screenshot()
 });
 
-it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
+it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - (Com dados fixos)', () => {
     cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.get('.product-block')
         .contains('Ariel Roll Sleeve Sweatshirt').click()
@@ -67,11 +67,11 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
     cy.get('#username').type('aluno_ebac@teste.com')
     cy.get('#password').type('teste@teste.com')
     cy.get('.woocommerce-button').click()
-    cy.wait(300);
+    //cy.wait(300);
     cy.get('#terms').click()
     cy.wait(200);
     cy.get('#place_order').click()
-
+    cy.wait(200);
     cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
     
         
@@ -85,4 +85,4 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
 
 
     });
-// Add the closing curly brace here
+

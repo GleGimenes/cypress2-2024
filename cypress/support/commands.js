@@ -40,3 +40,11 @@ Cypress.Commands.add('addProdutos', (indice, tamanho, cor, quantidade,) => {
     
 });
 
+Cypress.Commands.add('addProdutos2', (produto, size, color, quantity,) => {
+    cy.get('.product-block').contains(produto).click()
+    cy.get('.button-variable-item-' + size).click()
+    cy.get('.button-variable-item-' + color).click()
+    cy.get('.input-text').clear().type(quantity)
+
+});
+

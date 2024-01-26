@@ -13,7 +13,7 @@ describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     //cy.screenshot()
     //});
 
-    it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
+    it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Fazendo Login ao final da compra', () => {
         cy.get('#primary-menu > .menu-item-629 > a').click()
         cy.get('.product-block')
             .contains('Ariel Roll Sleeve Sweatshirt').click()

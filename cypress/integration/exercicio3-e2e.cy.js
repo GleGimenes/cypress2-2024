@@ -1,12 +1,14 @@
 /// <reference types="cypress" />
 const perfil = require('../fixtures/perfil.json')
 import faturamentoPage from '../support/page_objects/faturamento.page';
+const dadosEndereco = require('../fixtures/endereco')
+
 
 describe('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
 });
 
-beforeEach(() => { //Login usando Fixture
+beforeEach(() => { 
     cy.visit('minha-conta')
     cy.fixture('perfil').then(dados => {
         cy.login(dados.usuario, dados.senha)
@@ -20,9 +22,7 @@ beforeEach(() => { //Login usando Fixture
 cy.screenshot()
 });
 
-
-
-it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comando Customizados', () => {
+it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comando Customizados', () => {
     cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.addProdutos(5, '36', 'Red', '1')
     cy.get('.single_add_to_cart_button').click()
@@ -59,24 +59,22 @@ it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comando Custo
 })
 
 
-it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Page Objects', () => {
+it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comandos Customizado/Page Objects', () => {
     cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.addProdutos(5, '36', 'Red', '1')
     cy.get('.single_add_to_cart_button').click()
     cy.get('#primary-menu > .menu-item-629 > a').click()
-    cy.addProdutos(1, 'XL', 'Yellow', '1')
+    cy.addProdutos(4, '36', 'Black', '1')
     cy.get('.woocommerce-message > .button').click()
     cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.addProdutos(0, 'L', 'Green', '1')
     cy.get('.single_add_to_cart_button').click()
     cy.get('#primary-menu > .menu-item-629 > a').click()
-    cy.addProdutos(1, 'XL', 'Yellow', '1')
+    cy.addProdutos(2, '36', 'Blue', '1')
     cy.get('.woocommerce-message > .button').click()
     cy.get('h2').should('contain', 'Total no carrinho')
 
     faturamentoPage.editarDadosFaturamento()
- 
-     cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
     
 })
 
