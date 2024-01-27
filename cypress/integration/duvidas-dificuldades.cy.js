@@ -118,7 +118,8 @@ it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Com dados de 
   cy.get('.single_add_to_cart_button').click()
   cy.get('.woocommerce-message > .button').click()
   cy.get('.checkout-button').click()
-  
+
+  //DUVIDA COMO UTILIZAR BIBLIOTECAS FAKER (tenho problemas semelhantes mesmo usando outras bibliotecas com a Chance e a Casual)
   //Problemas sempre alternando entre estado, cep e telefone
   cy.get('#billing_first_name').clear().type(faker.internet.userName());
   cy.get('#billing_last_name').clear().type(faker.name.lastName());
@@ -129,7 +130,7 @@ it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Com dados de 
   cy.get('#billing_city').clear().type(faker.address.city() + '{enter}');
   cy.get('#select2-billing_state-container').click().type(faker.address.state(),{ force: true });
   cy.get('#billing_postcode').clear().type(faker.address.zipCode());
-//  cy.get('#billing_phone').clear().type(faker.phone.phoneNumber());
+  cy.get('#billing_phone').clear().type(faker.phone.phoneNumber());
   cy.get('#billing_email').clear().type(faker.internet.email());
   cy.wait(500);
   cy.get('#terms').click()

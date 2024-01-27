@@ -59,7 +59,7 @@ it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comando Customizad
 })
 
 
-it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comandos Customizado/Page Objects', () => {
+it.only('Deve fazer um pedido na loja Ebac Shop de ponta a ponta - Comandos Customizado/Page Objects', () => { 
     cy.get('#primary-menu > .menu-item-629 > a').click()
     cy.addProdutos(5, '36', 'Red', '1')
     cy.get('.single_add_to_cart_button').click()
